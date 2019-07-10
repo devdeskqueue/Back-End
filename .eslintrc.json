@@ -1,14 +1,10 @@
 {
-  "extends": [
-    "eslint:recommended",
-    "plugin:import/errors",
-    "prettier"
-  ],
+  "extends": ["eslint:recommended", "plugin:import/errors", "prettier"],
   "rules": {
     "react/rop-types": 0,
     "no-console": 1
   },
-  "plugins": [ "import" ],
+  "plugins": ["import"],
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module"
@@ -16,6 +12,8 @@
   "env": {
     "es6": true,
     "browser": true,
-    "node": true
+    "node": true,
+    "jest": true,
+    "supertest": true
   }
 }
