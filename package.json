@@ -1,0 +1,34 @@
+{
+  "name": "devdeskqueue-backend",
+  "version": "1.0.0",
+  "description": "RESTful API for devdeskqueue",
+  "main": "index.js",
+  "scripts": {
+    "format": "prettier \"src/**/*.{js,html}\" --write",
+    "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
+    "test": "jest --watch --verbose",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devdeskqueue/Back-End.git"
+  },
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.2",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^5.0.0",
+    "eslint-plugin-import": "^2.17.3",
+    "jest": "^23.6.0",
+    "supertest": "^3.3.0",
+    "prettier": "^1.18.2"
+  },
+  "author": "Louis Magdaleno & Wilfred Morgan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/devdeskqueue/Back-End/issues"
+  },
+  "homepage": "https://github.com/devdeskqueue/Back-End#readme"
+}
