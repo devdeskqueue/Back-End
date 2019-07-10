@@ -6,7 +6,7 @@
   "scripts": {
     "format": "prettier \"src/**/*.{js,html}\" --write",
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
-    "test": "jest --watch --verbose",
+    "test": "jest ./test/test.js",
     "start": "nodemon index.js"
   },
   "repository": {
