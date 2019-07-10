@@ -1,13 +1,18 @@
-const server = require("./server");
+const express = require("express");
 
-// local variables
+const app = express();
+
+app.use(express.json());
+
 const PORT = 3000;
 
-//Respond with "hello world" for requests that hit our root "/"
-server.get(‘/’, function (req, res) {
- res.send(‘hello world’);
+// Respond with "hello world" for requests that hit our root "/"
+app.get("/", (req, res) => {
+  res.send("hello world");
 });
 
-server.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`The server is running on port ${PORT}`);
 });
+
+module.exports = app;
