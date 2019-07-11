@@ -1,12 +1,9 @@
 var request = require("supertest");
 
-var app = require("../index.js");
+var app = require("../server.js");
 
-describe("GET /", function() {
-  it("respond with hello world", function(done) {
-    //navigate to root and check the the response is "hello world"
-    request(app)
-      .get("/")
-      .expect("hello world", done);
-  });
+test("gets hello world from / ", async done => {
+  const response = await request(app).get("/");
+  expect(response.status).toBe(200);
+  done();
 });
