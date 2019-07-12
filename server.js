@@ -2,8 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 
-const loginRoute = require("./routes/login");
-const registerRoute = require("./routes/register");
+const userRoutes = require("./routes/userRoutes");
 
 const server = express();
 
@@ -16,7 +15,6 @@ server.get("/", (req, res) => {
   res.send("hello world");
 });
 
-loginRoute(server);
-registerRoute(server);
+userRoutes(server);
 
 module.exports = server;

@@ -5,6 +5,7 @@ const jwtKey = process.env.JWT_KEY;
 
 module.exports = server => {
   server.post("/api/login", login);
+  server.post("/api/register", register);
 };
 
 function generateToken(user) {
@@ -31,6 +32,18 @@ function login(req, res) {
       } else {
         res.status(401).json({ message: "you shall not pass!!" });
       }
+    })
+    .catch(err => res.status(400).json(err));
+}
+
+function register(req, res) {
+  const creds = req.body;
+  const hash = bcrypt.hashSync(creds.password, 10);
+  creds.password = hash;
+  db("users")
+    .insert(creds)
+    .then(ids => {
+      res.status(201).json(ids);
     })
     .catch(err => res.status(400).json(err));
 }
