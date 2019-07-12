@@ -12,7 +12,8 @@ module.exports = {
     },
     seeds: {
       directory: './data/seeds'
-    }
+    },
+    debug: true
   },
   testing: {
     useNullAsDefault: true,
@@ -35,7 +36,8 @@ module.exports = {
     },
     seeds: {
       directory: './data/seeds'
-    }
+    },
+    debug: true
   },
   production: {
     client: 'pg',
