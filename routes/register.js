@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const db = require("knex")(require("../knexfile").development);
 
 module.exports = server => {
-  server.post("/api/signup", register);
+  server.post("/api/register", register);
 };
 
 function register(req, res) {
