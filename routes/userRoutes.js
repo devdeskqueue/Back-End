@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const db = require("../data/models");
 
 const { inputDataChecker, requiredData } = require("../auth/authenticate");
-const requiredFields = ["username", "password"];
+const requiredFields = ["email", "password"];
 
 module.exports = server => {
   server.post(
@@ -27,7 +27,7 @@ async function register(req, res) {
     let newUser = await db.insert(user, "users");
     let token = generateToken(newUser);
     res.status(201).json({
-      message: `Welcome ${newUser.username}`,
+      message: `Welcome ${newUser.email}`,
       token
     });
   } catch (err) {
@@ -36,17 +36,17 @@ async function register(req, res) {
 }
 
 async function login(req, res) {
-  let { username, password } = req.body;
+  let { email, password } = req.body;
   try {
-    let user = await db.findByUser(username, "users");
+    let user = await db.findByUser(email, "users");
     if (user && bcrypt.compareSync(password, user.password)) {
       let token = generateToken(user);
       res.json({
-        message: `Welcome ${user.username}`,
+        message: `Welcome ${user.email}`,
         token
       });
     } else {
-      res.status(401).json({ message: "Incorrect username or password" });
+      res.status(401).json({ message: "Incorrect email or password" });
     }
   } catch (err) {
     res.status(500).json(err.message);
