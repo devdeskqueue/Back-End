@@ -8,7 +8,7 @@ exports.up = async function (knex) {
       .onDelete('CASCADE')
       .onUpdate('CASCADE')
     tbl.string('comment', 1000)
-    tbl.integer('created_by')
+    tbl.integer('opened_by')
       .references('id')
       .inTable('Users')
     tbl.timestamp('created_at').defaultTo(knex.fn.now())
