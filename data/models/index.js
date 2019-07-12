@@ -1,4 +1,4 @@
-const db = [];
+let db = [];
 
 async function getUsers() {
   try {
@@ -42,7 +42,7 @@ function remove(id) {
     let user = db.find(user => user.id === id);
     db = db.filter(user => user.id !== id);
 
-    return user;
+    return "success";
   } catch (err) {
     return err;
   }
