@@ -7,7 +7,7 @@ module.exports = {
     connection: {
       filename: './data/devdesk.db3'
     },
-    migration: {
+    migrations:{
       directory: './data/migrations'
     },
     seeds: {
@@ -21,7 +21,7 @@ module.exports = {
     connection: {
       filename: './data/test.db3'
     },
-    migration: {
+    migrations:{
       directory: './data/migrations'
     }
   },

@@ -1,5 +1,5 @@
 
-exports.up = async function(knex) {
+exports.up = async function (knex) {
   await knex.schema.createTable('Comments', tbl => {
     tbl.increments('id')
     tbl.integer('ticket_id')
@@ -17,9 +17,8 @@ exports.up = async function(knex) {
       .inTable('Users')
     tbl.timestamp('updated_at')
   })
-
 };
 
-exports.down = async function(knex) {
+exports.down = async function (knex) {
   await knex.schema.dropTableIfExists('Comments')
 };

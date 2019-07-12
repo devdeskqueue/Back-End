@@ -1,5 +1,5 @@
 
-exports.up = async function(knex) {
+exports.up = async function (knex) {
   await knex.schema.createTable('Tickets', tbl => {
     tbl.increments('id')
     tbl.string('title').notNullable()
@@ -9,7 +9,7 @@ exports.up = async function(knex) {
       .inTable('categories')
     tbl.integer('opened_by')
       .references('id')
-      .inTable('Users')  
+      .inTable('Users')
     tbl.timestamp('created_at').defaultTo(knex.fn.now())
     tbl.integer('assigned_to')
       .references('id')
@@ -22,7 +22,7 @@ exports.up = async function(knex) {
   })
 };
 
-exports.down = async function(knex) {
+exports.down = async function (knex) {
   await knex.schema.dropTableIfExists('Tickets')
   // await knex.schema.dropTableIfExists('Categories')
   // await knex.schema.dropTableIfExists('Users')
