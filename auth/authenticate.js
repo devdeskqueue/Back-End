@@ -4,11 +4,6 @@ const jwtKey =
   process.env.JWT_SECRET ||
   "add a .env file to root of project with the JWT_SECRET variable";
 
-// quickly see what this file exports
-module.exports = {
-  authenticate
-};
-
 // implementation details
 function authenticate(req, res, next) {
   const token = req.get("Authorization");
@@ -27,3 +22,23 @@ function authenticate(req, res, next) {
     });
   }
 }
+
+const inputDataChecker = (arr, target) => target.every(v => arr.includes(v));
+
+const requiredData = (dataChecker, dataFields) => {
+  return (req, res, next) => {
+    if (!req.body || !Object.keys(req.body).length) {
+      res.status(400).json({ message: `Missing user data` });
+    } else if (!dataChecker(Object.keys(req.body), dataFields)) {
+      res.status(400).json({ message: `Missing required field.` });
+    } else {
+      next();
+    }
+  };
+};
+
+module.exports = {
+  inputDataChecker,
+  requiredData,
+  authenticate
+};
