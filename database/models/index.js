@@ -85,11 +85,7 @@ async function remove(id, table) {
       .where({ id })
       .del();
     if (deleteCount > 0) {
-      return {
-        message: `${deleteCount} ${
-          deleteCount > 1 ? "records" : "record"
-        } deleted`
-      };
+      return "success";
     } else throw err;
   } catch (err) {
     return err;
