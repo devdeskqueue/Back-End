@@ -28,7 +28,8 @@ function findByUser(username) {
 
 function insert(data) {
   try {
-    let newRecordId = db.push(data);
+    db.push({ ...data, id: db.length });
+    let newRecordId = db[db.length - 1].id;
     let newRecord = findById(newRecordId);
     return newRecord;
   } catch (err) {
@@ -52,7 +53,6 @@ module.exports = {
   findById,
   findByUser,
   insert,
-  update,
   remove,
   getUsers
 };
