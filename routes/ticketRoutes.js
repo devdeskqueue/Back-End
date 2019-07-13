@@ -16,14 +16,16 @@ router.get('/', async (req, res) => {
   }
 })
 
-// router.get('/api/tickets/:id', async (req, res) => {
-//   try {
-
-//   }
-//   catch (err) {
-//     res.status(500).send(err.message)
-//   }
-// })
+router.get('/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+    const data = await db.findById('Tickets', id)
+    res.send(data)
+  }
+  catch (err) {
+    res.status(500).send(err.message)
+  }
+})
 
 
 // ==== POST ==== //
