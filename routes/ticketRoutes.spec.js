@@ -102,4 +102,25 @@ describe('Tickets endpoint testing', () => {
     })
 
   })
+
+  describe('POST /tickets', () => {
+    const testData = {
+      title: 'Promise unresolved',
+      description: 'Promise is still unresolved',
+      category_id: 5,
+      opened_by: 2
+    }
+
+    it('will receive status code that record was created', async () => {
+      const res = await request(server).post('/api/tickets').send(testData)
+      expect(res.status).toBe(201)
+    })
+
+    it('should receive the new ticket', async () => {
+      const res = await request(server).post('/api/tickets').send(testData)
+      expect(res.body.id).toBe(1)
+      expect(res.body.title).toBe(testData.title)
+      expect(res.body.category_id).toBe(testData.category_id)
+    })
+  })
 })

@@ -27,8 +27,17 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-
 // ==== POST ==== //
+router.post('/', async (req, res) => {
+  try {
+    const data = await db.insert('Tickets', req.body)
+    res.status(201).send(data)
+  }
+  catch (err) {
+    res.status(500).send(err.message)
+  }
+})
+
 
 // ==== PUT ==== //
 
