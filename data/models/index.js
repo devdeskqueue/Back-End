@@ -1,58 +1,59 @@
-let db = [];
+// Instantiate database instance
+const db = require('../dbConfig')
 
-async function getUsers() {
+// ==== Global Database Methods ==== //
+function findAll(table) {
+  return db(table).orderBy('id')
+}
+
+function findById(table, id) {
+  return db(table).where({ id }).first()
+}
+
+async function insert(table, data) {
   try {
-    return db;
-  } catch (err) {
-    return err;
+    const [id] = await db(table).insert(data)
+    return await findById(table, id)
+  }
+  catch (err) {
+    return err
   }
 }
 
-function findById(id) {
+async function update(table, id, data) {
   try {
-    let data = db.filter(user => user.id === id)[0];
-    return data;
-  } catch (err) {
-    return err;
+    const count = await db(table)
+                  .where({ id })
+                  .update(data)
+    if (count > 0) {
+      return await findById(table, id)
+    }
+
+  }
+  catch (err) {
+    return err
   }
 }
 
-function findByUser(username) {
+async function remove(table, id) {
   try {
-    let data = db.filter(user => user.username === username)[0];
-    return data;
-  } catch (err) {
-    return err;
+    const count = await db(table).where({ id }).del()
+    if (count > 0) {
+      return {
+        message: `${count} ${count > 1 ?
+          'records' : 'record'} deleted`
+      }
+    }
+  }
+  catch (error) {
+    return error
   }
 }
-
-function insert(data) {
-  try {
-    db.push({ ...data, id: db.length });
-    let newRecordId = db[db.length - 1].id;
-    let newRecord = findById(newRecordId);
-    return newRecord;
-  } catch (err) {
-    return err;
-  }
-}
-
-function remove(id) {
-  try {
-    let user = db.find(user => user.id === id);
-    db = db.filter(user => user.id !== id);
-
-    return "success";
-  } catch (err) {
-    return err;
-  }
-}
-
 module.exports = {
   db,
+  findAll,
   findById,
-  findByUser,
   insert,
-  remove,
-  getUsers
-};
+  update,
+  remove
+}
