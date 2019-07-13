@@ -20,9 +20,25 @@ async function insert(table, data) {
   }
 }
 
+async function update(table, id, data) {
+  try {
+    const count = await db(table)
+                  .where({ id })
+                  .update(data)
+    if (count > 0) {
+      return await findById(table, id)
+    } else throw error
+
+  }
+  catch (error) {
+    return error
+  }
+}
+
 module.exports = {
   db,
   findAll,
   findById,
-  insert
+  insert,
+  update
 }

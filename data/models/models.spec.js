@@ -110,5 +110,37 @@ describe('Models testing', () => {
     })
   })
 
+  describe('update()', () => {
+    it('update record by id', async () => {
+      // Seed with test data
+      const testData = [
+        {
+          id: 1,
+          name: 'HTML',
+          description: 'HTML related questions',
+        },
+        {
+          id: 2,
+          name: 'CSS',
+          description: 'Uncovering the mysteries of CSS',
+        },
+        {
+          id: 3,
+          name: 'Javascript',
+          description: 'Vanilla Javascript related questions',
+        }
+      ]
+
+      await db('Categories').insert(testData)
+
+      // Run Model
+      const id = 3
+      const newData = { name: 'Vanilla Javascript' }
+      const data = await Models.update('Categories', id, newData)
+
+      // Validate Model
+      expect(data.name).toBe(newData.name)
+    })
+  })
 
 })
