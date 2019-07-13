@@ -11,7 +11,7 @@ describe('Models testing', () => {
   })
 
   describe('findAll()', () => {
-    it('find all records in table', async () => {
+    it(`find all records in Categories table`, async () => {
       // Seed with test data
       const testCategories = [
         {
@@ -33,9 +33,13 @@ describe('Models testing', () => {
 
       await db('Categories').insert(testCategories)
 
+      // Run Model
       const categories = await Models.findAll('Categories')
 
+      // Validate Model
       expect(categories).toEqual(testCategories)
     })
   })
+
+  
 })
