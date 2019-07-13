@@ -27,11 +27,11 @@ async function update(table, id, data) {
                   .update(data)
     if (count > 0) {
       return await findById(table, id)
-    } else throw error
+    }
 
   }
-  catch (error) {
-    return error
+  catch (err) {
+    return err
   }
 }
 
