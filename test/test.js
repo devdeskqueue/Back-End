@@ -2,7 +2,7 @@ var request = require("supertest");
 
 var server = require("../server.js");
 
-const models = require("../database/models/index");
+const models = require("../data/models/index");
 
 describe("Testing auth", () => {
   describe("POST /register", function() {
