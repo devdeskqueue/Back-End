@@ -10,8 +10,19 @@ function findById(table, id) {
   return db(table).where({ id }).first()
 }
 
+async function insert(table, data) {
+  try {
+    const [id] = await db(table).insert(data)
+    return await findById(table, id)
+  }
+  catch (err) {
+    return err
+  }
+}
+
 module.exports = {
   db,
   findAll,
-  findById
+  findById,
+  insert
 }

@@ -83,6 +83,31 @@ describe('Models testing', () => {
       expect(data.first_name).toEqual(testData[id-1].first_name)
       expect(data.last_name).toEqual(testData[id-1].last_name)
     })
+
+    it('return undefined on an invalid id', async () => {
+      const data = await Models.findById('Users', 999)
+      expect(data).toBeUndefined()
+    })
+  })
+
+  describe('insert()', () => {
+    it('insert records into the database', async () => {
+      const testData = {
+        first_name: 'Harry',
+        last_name: 'Potter',
+        email: 'harry@hogwarts.edu',
+        password: bcrypt.hashSync('pass123', 12),
+        role_id: 2
+      }
+
+      // Run Model
+      await Models.insert('Users', testData)
+
+      // Validate Model
+      const data = await db('Users')
+      expect(data).toHaveLength(1)
+      expect(data[0].first_name).toBe('Harry')
+    })
   })
 
 
