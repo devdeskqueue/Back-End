@@ -21,13 +21,13 @@ module.exports = server => {
 
 async function register(req, res) {
   let user = req.body;
-  const hash = bcrypt.hashSync(user.password, 14);
+  const hash = bcrypt.hashSync(user.password, 12);
   user.password = hash;
   try {
     let newUser = await db.insert(user, "Users");
     let token = generateToken(newUser);
     res.status(201).json({
-      message: `Welcome ${newUser.email}`,
+      message: `Welcome ${newUser.firstName}`,
       token
     });
   } catch (err) {

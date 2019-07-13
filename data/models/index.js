@@ -20,7 +20,7 @@ async function findByTable(table, ticketID = null) {
 async function findById(id, table) {
   try {
     let data = await db(table)
-      .select("id", "username")
+      .select("id", "email")
       .where({ id: Number(id) })
       .first();
     return data;
@@ -29,10 +29,11 @@ async function findById(id, table) {
   }
 }
 
-async function findByUser(username, table) {
+async function findByUser(email, table) {
   try {
+    console.log(email);
     let data = await db(table)
-      .where({ username })
+      .where({ email })
       .first();
     return data;
   } catch (err) {
@@ -53,8 +54,12 @@ async function findByField(table, field, data) {
 
 async function insert(data, table) {
   try {
-    let newRecordId = await db(table).insert(data, "id");
+    let user = { ...data };
+    console.log(JSON.stringify(user));
+    let newRecordId = await db(table).insert(JSON.parse(user));
+    console.log(`new record id : ${newRecordId}`);
     let newRecord = await findById(newRecordId, table);
+    console.log(`new record : ${newRecord}`);
     return newRecord;
   } catch (err) {
     return err;
