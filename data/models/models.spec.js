@@ -143,4 +143,47 @@ describe('Models testing', () => {
     })
   })
 
+  describe('remove()', () => {
+    // Seed with test data
+    const testData = [
+      {
+        id: 1,
+        name: 'HTML',
+        description: 'HTML related questions',
+      },
+      {
+        id: 2,
+        name: 'CSS',
+        description: 'Uncovering the mysteries of CSS',
+      },
+      {
+        id: 3,
+        name: 'Javascript',
+        description: 'Vanilla Javascript related questions',
+      }
+    ]
+
+    const id = 3
+
+    beforeEach(async () => {
+      await db('Categories').insert(testData)
+    })
+    
+    it('confirm test data exists in the database', async () => {
+      const data = await db('Categories')
+      expect(data[1].id).toEqual(2)
+    })
+
+    it('confirm record is deleted', async () => {
+      const data = await Models.remove('Categories', id)
+      expect(data).toEqual({ message: `1 record deleted`})
+    })
+
+    it(`confirm record no longer exists`, async () => {
+      await Models.remove('Categories', id)
+      const data = await db('Categories').where({ id }).first()
+      expect(data).toBeUndefined()
+    })
+  })
+
 })

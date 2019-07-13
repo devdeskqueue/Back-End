@@ -35,10 +35,25 @@ async function update(table, id, data) {
   }
 }
 
+async function remove(table, id) {
+  try {
+    const count = await db(table).where({ id }).del()
+    if (count > 0) {
+      return {
+        message: `${count} ${count > 1 ?
+          'records' : 'record'} deleted`
+      }
+    }
+  }
+  catch (error) {
+    return error
+  }
+}
 module.exports = {
   db,
   findAll,
   findById,
   insert,
-  update
+  update,
+  remove
 }
