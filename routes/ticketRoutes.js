@@ -44,6 +44,17 @@ router.post('/', async (req, res) => {
 })
 
 // ==== PUT ==== //
+router.put('/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+    const data = await db.update('Tickets', id, req.body)
+    res.send(data)
+  }
+
+  catch (err) {
+    res.status(500).send(err.message)
+  }
+})
 
 
 // ==== DELETE ==== //

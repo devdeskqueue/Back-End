@@ -51,7 +51,7 @@ describe('Tickets endpoint testing', () => {
       expect(res.status).toBe(200)
     })
 
-    it('should return all users in test database', async () => {
+    it('should return all tickets in test database', async () => {
       const res = await request(server).get('/api/tickets')
       expect(res.body.length).toEqual(testData.length)
     })
@@ -127,6 +127,53 @@ describe('Tickets endpoint testing', () => {
       expect(res.body.id).toBe(1)
       expect(res.body.title).toBe(testData.title)
       expect(res.body.category_id).toBe(testData.category_id)
+    })
+  })
+
+  describe('UPDATE /tickets/:id', () => {
+    // Seed with test data
+    const testData = [
+      {
+        id: 1,
+        title: `Help! Can't center text box`,
+        description: `I need help trying to vertically and horizontally center a text box`,
+        category_id: 2,
+        opened_by: 2
+      },
+      {
+        id: 2,
+        title: 'State not updating',
+        description: 'Having problems updating state',
+        category_id: 4,
+        opened_by: 1
+      },
+      {
+        id: 3,
+        title: 'Weird error message',
+        description: 'Another weird error message',
+        category_id: 1,
+        opened_by: 3
+      },
+      {
+        id: 4,
+        title: 'Promise unresolved',
+        description: 'Promise is still unresolved',
+        category_id: 5,
+        opened_by: 2
+      }
+    ]
+
+    beforeEach(async () => {
+      await db('Tickets').insert(testData)
+    })
+
+    it('update existing record', async () => {
+      let id = 2
+      let timestamp = Date.now()
+      const updateData = { closed: true, completed_at: timestamp }
+      const res = await request(server).put(`/api/tickets/${id}`).send(updateData)
+      expect(res.body.closed).toBeTruthy()
+      expect(res.body.completed_at).toBe(updateData.completed_at)
     })
   })
 
