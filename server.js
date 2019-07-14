@@ -4,6 +4,7 @@ const helmet = require("helmet");
 
 const userRoutes = require("./routes/userRoutes");
 const ticketRoutes = require("./routes/ticketRoutes")
+const commentRoutes = require("./routes/commentRoutes")
 
 const server = express();
 
@@ -19,5 +20,6 @@ server.get("/", (req, res) => {
 // Route handling
 userRoutes(server);
 server.use('/api/tickets', ticketRoutes)
+server.use('/api/tickets/:ticket_id/comments', commentRoutes)
 
 module.exports = server;
