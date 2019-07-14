@@ -43,7 +43,7 @@ https://dbdiagram.io/d/5d26ae9aced98361d6dc8c8c
 
 | Method | Description |
 |--------|-------------|
-| `find()` | Returns a promise that resolves to an array of all the resources contained in the database. |
+| `findAll()` | Returns a promise that resolves to an array of all the resources contained in the database. |
 | `findById()` | Takes an id as the argument and returns a promise that resolves to the resource with that id if found. |
 | `insert()` | Accepts a `resource` object to add it to the database and return the new `resource`.
 | `update()` | Accepts two arguments, the first is the id of the resource to update and the second is an object with the changes to apply. It returns the count of updated records. If the count is 1 it means the record was updated correctly. |
