@@ -47,17 +47,17 @@ router.post('/', async (req, res) => {
 
 
 // ==== DELETE ==== //
-// router.delete('/:id', async (req, res) => {
-//   const { id } = req.params
-//   try {
-//     const data = await db.remove('Tickets', id)
-//     if (data > 0) {
-//       res.json({ message: `Successfully deleted record ${id}` })
-//     }
-//   }
-//   catch (err) {
-//     res.status(500).send(err.message)
-//   }
-// })
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+    const data = await db.remove('Tickets', id)
+    if (data) {
+      res.json(data)
+    }
+  }
+  catch (err) {
+    res.status(500).send(err.message)
+  }
+})
 
 module.exports = router

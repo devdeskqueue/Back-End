@@ -130,7 +130,7 @@ describe('Tickets endpoint testing', () => {
     })
   })
 
-  xdescribe('DELETE /tickets/:id', () => {
+  describe('DELETE /tickets/:id', () => {
     // Seed with test data
     const testData = [
       {
@@ -171,10 +171,10 @@ describe('Tickets endpoint testing', () => {
       const id = 2
       const res = await request(server).delete(`/api/tickets/${id}`)
       expect(res.status).toBe(200)
-      expect(res.body).toEqual({ message: `Successfully deleted record ${id}` })
+      expect(res.body).toEqual({ message: `1 record deleted` })
     })
 
-    xit('confirm ticket no longer exists', async () => {
+    it('confirm ticket no longer exists', async () => {
       const id = 2
       await request(server).delete(`/api/tickets/${id}`)
       const res = await request(server).get(`/api/tickets/${id}`)
