@@ -42,7 +42,8 @@ exports.up = async function(knex) {
       .references('id')
       .inTable('Users')
     tbl.timestamp('updated_at')
-    tbl.boolean('is_complete').notNullable().defaultTo(false)
+    tbl.boolean('closed').notNullable().defaultTo(false)
+    tbl.timestamp('completed_at')
   })
 
   await knex.schema.createTable('Comments', tbl => {
