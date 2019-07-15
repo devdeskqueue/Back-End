@@ -13,10 +13,10 @@ exports.up = async function(knex) {
 
   await knex.schema.createTable('Users', tbl => {
     tbl.increments('id')
-    tbl.string('firstName', 128)
-    tbl.string('lastName', 128)
+    tbl.string('first_name', 128)
+    tbl.string('last_name', 128)
     tbl.string('password', 128).notNullable()
-    tbl.string('email', 128).notNullable()
+    tbl.string('email', 128).unique().notNullable()
     tbl.integer('role_id')
       .notNullable()
       .defaultTo(2)
