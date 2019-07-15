@@ -24,7 +24,7 @@ async function register(req, res) {
   const hash = bcrypt.hashSync(user.password, 12);
   user.password = hash;
   try {
-    let newUser = await db.insert(user, "Users");
+    let newUser = await db.insert("Users", user);
     let token = generateToken(newUser);
     res.status(201).json({
       message: `Welcome ${newUser.firstName}`,
@@ -38,7 +38,8 @@ async function register(req, res) {
 async function login(req, res) {
   let { email, password } = req.body;
   try {
-    let user = await db.findByUser(email, "Users");
+    let { id } = await db.db("Users").where("email", email);
+    let user = await db.findById("Users", id);
     if (user && bcrypt.compareSync(password, user.password)) {
       let token = generateToken(user);
       res.json({
