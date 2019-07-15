@@ -1,72 +1,61 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 
-const db = require("../data/dbconfig.js");
+const bcrypt = require('bcrypt');
 
-const { inputDataChecker, requiredData } = require("../auth/authenticate");
-const requiredFields = ["email", "password"];
+const db = require('../data/dbConfig');
+const tokenService = require("../auth/tokenService");
 
 module.exports = server => {
-  server.post(
-    "/api/register",
-    requiredData(inputDataChecker, requiredFields),
-    register
-  );
-  server.post(
-    "/api/login",
-    requiredData(inputDataChecker, requiredFields),
-    login
-  );
+  server.post('/api/register', register);
+  server.post('/api/login', login);
 };
 
+/**
+ * Endpoint to register a new user
+ * @param req - request from client
+ * @param res - response to client
+ * @returns res - status code plus json
+ */
 async function register(req, res) {
-  const creds = req.body;
-  if (
-    !creds.password ||
-    !creds.first_name ||
-    !creds.last_name ||
-    !creds.email
-  ) {
-    res.status(400).json({ error: "All fields are required!" });
-  } else {
-    creds.password = bcrypt.hashSync(creds.password, 12);
-    db("Users")
-      .insert(creds)
-      .then(ids => {
-        db("Users")
-          .where("id", ids[0])
-          .first()
-          .then(user => res.status(201).json(generateToken(user)));
-      })
-      .catch(err => res.status(500).json(err));
+  // implement user registration
+  let { password } = req.body;
+  let user;
+
+  password = bcrypt.hashSync(password, 10);
+  user = { ...req.body, password };
+
+  try {
+    const result = await db('Users').insert(user);
+    if (result)
+      return res.status(201).json({ message: "User created" });
+
+    return res.status(400).json({ message: "Something went wrong." });
+  } catch(err) {
+    return res.status(500).json({ message: "Something went wrong." });
   }
 }
 
+/**
+ * Endpoint for logging in a user
+ * @param req - request from client
+ * @param res - response to client
+ * @returns res - status code plus json
+ */
 async function login(req, res) {
-  const creds = req.body;
-  if (!creds.email || !creds.password) {
-    res.status(400).json({ message: "Email and Password are both required!" });
-  } else {
-    db("Users")
-      .where("email", creds.email)
-      .first()
-      .then(user =>
-        user && bcrypt.compareSync(creds.password, user.password)
-          ? res.status(200).json(generateToken(user))
-          : res.status(401).json({ message: "Invalid email or password!" })
-      )
-      .catch(err => res.status(500).json(err));
-  }
-}
+  // implement user login
+  const { email, password } = req.body;
 
-function generateToken(user) {
-  return jwt.sign(
-    {
-      userId: user.id
-    },
-    process.env.JWT_SECRET,
-    {
-      expiresIn: "2h"
+  try {
+    const user = await db('Users').where({ email }).first();
+    if (user && bcrypt.compareSync(password, user.password)) {
+      const token = tokenService.generateToken(user);
+      res.status(200).json({
+        message: "Login successful",
+        token
+      });
+    } else {
+      res.status(401).json({ message: "Something went wrong." });
     }
-  );
-}
+  } catch(err) {
+
+    return res.status(500).json({ message: "Something went wrong." });
+  }

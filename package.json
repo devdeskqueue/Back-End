@@ -6,7 +6,7 @@
   "scripts": {
     "format": "prettier \"src/**/*.{js,html}\" --write",
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
-    "test": "cross-env DB_ENV=testing jest --watch --verbose",
+    "test": "cross-env DB_ENV=testing jest ./routes --watchAll --verbose",
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
