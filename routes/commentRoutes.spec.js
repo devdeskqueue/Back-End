@@ -97,8 +97,8 @@ describe('Comments endpoint testing', () => {
     })
 
     it('return 404 status code for missing record', async () => {
-      let ticket_id = 1
-      let id = 9999
+      const ticket_id = 1
+      const id = 9999
       const res = await request(server)
         .get(`/api/tickets/${ticket_id}/comments/${id}`)
       expect(res.status).toBe(404)
@@ -113,7 +113,7 @@ describe('Comments endpoint testing', () => {
       opened_by: 2
     }
 
-    let ticket_id = testData.ticket_id
+    const ticket_id = testData.ticket_id
 
     it('will receive status code that record was created', async () => {
       const res = await request(server).post(`/api/tickets/${ticket_id}/comments`).send(testData)
@@ -161,12 +161,21 @@ describe('Comments endpoint testing', () => {
     })
 
     it('update existing record', async () => {
-      let ticket_id = 1
-      let id = 2
+      const ticket_id = 1
+      const id = 2
       const updateData = { comment: `Update test` }
       const res = await request(server)
         .put(`/api/tickets/${ticket_id}/comments/${id}`).send(updateData)
       expect(res.body.comment).toBe(updateData.comment)
+    })
+
+    it(`test update timestamp`, async () => {
+      const ticket_id = 1
+      const id = 2
+      const updateData = { comment: 'Timestamp Test' }
+      const res = await request(server)
+        .put(`/api/tickets/${ticket_id}/comments/${id}`).send(updateData)
+      expect(res.body.updated_at).not.toBeNull()
     })
   })
 
