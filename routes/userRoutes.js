@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const db = require("../data/models");
+const db = require("../data/dbconfig.js");
 
 const { inputDataChecker, requiredData } = require("../auth/authenticate");
 const requiredFields = ["email", "password"];
@@ -20,37 +20,42 @@ module.exports = server => {
 };
 
 async function register(req, res) {
-  let user = req.body;
-  const hash = bcrypt.hashSync(user.password, 12);
-  user.password = hash;
-  try {
-    let newUser = await db.insert("Users", user);
-    let token = generateToken(newUser);
-    res.status(201).json({
-      message: `Welcome ${newUser.firstName}`,
-      token
-    });
-  } catch (err) {
-    res.status(500).json(err.message);
+  const creds = req.body;
+  if (
+    !creds.password ||
+    !creds.first_name ||
+    !creds.last_name ||
+    !creds.email
+  ) {
+    res.status(400).json({ error: "All fields are required!" });
+  } else {
+    creds.password = bcrypt.hashSync(creds.password, 12);
+    db("Users")
+      .insert(creds)
+      .then(ids => {
+        db("Users")
+          .where("id", ids[0])
+          .first()
+          .then(user => res.status(201).json(generateToken(user)));
+      })
+      .catch(err => res.status(500).json(err));
   }
 }
 
 async function login(req, res) {
-  let { email, password } = req.body;
-  try {
-    let { id } = await db.db("Users").where("email", email);
-    let user = await db.findById("Users", id);
-    if (user && bcrypt.compareSync(password, user.password)) {
-      let token = generateToken(user);
-      res.json({
-        message: `Welcome ${user.email}`,
-        token
-      });
-    } else {
-      res.status(401).json({ message: "Incorrect email or password" });
-    }
-  } catch (err) {
-    res.status(500).json(err.message);
+  const creds = req.body;
+  if (!creds.email || !creds.password) {
+    res.status(400).json({ message: "Email and Password are both required!" });
+  } else {
+    db("Users")
+      .where("email", creds.email)
+      .first()
+      .then(user =>
+        user && bcrypt.compareSync(creds.password, user.password)
+          ? res.status(200).json(generateToken(user))
+          : res.status(401).json({ message: "Invalid email or password!" })
+      )
+      .catch(err => res.status(500).json(err));
   }
 }
 
