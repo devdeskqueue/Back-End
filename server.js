@@ -65,7 +65,7 @@ server.post("/register", isValidPassword, isValidEmail, (req, res) => {
 
 server.post("/login", (req, res) => {
   const creds = req.body;
-  if (!creds.username || !creds.password) {
+  if (!creds.email || !creds.password) {
     res.status(400).json({ message: "Email and Password are both required!" });
   } else {
     db("Users")
@@ -74,9 +74,7 @@ server.post("/login", (req, res) => {
       .then(user =>
         user && bcrypt.compareSync(creds.password, user.password)
           ? res.status(200).json(generateToken(user))
-          : res
-              .status(401)
-              .json({ message: "Invalid usernaemailme or password!" })
+          : res.status(401).json({ message: "Invalid email or password!" })
       )
       .catch(err => res.status(500).json(err));
   }
