@@ -95,14 +95,14 @@ describe('Tickets endpoint testing', () => {
     })
 
     it('/tickets/:id return ticket by id', async () => {
-      let id = 2
+      const id = 2
       const res = await request(server).get(`/api/tickets/${id}`)
       expect(res.status).toBe(200)
       expect(res.body.title).toBe(testData[id-1].title)
     })
 
     it('return 404 status code for missing record', async () => {
-      let id = 9999
+      const id = 9999
       const res = await request(server).get(`/api/tickets/${id}`)
       expect(res.status).toBe(404)
     })
@@ -168,12 +168,19 @@ describe('Tickets endpoint testing', () => {
     })
 
     it('update existing record', async () => {
-      let id = 2
-      let timestamp = Date.now()
+      const id = 2
+      const timestamp = Date.now()
       const updateData = { closed: true, completed_at: timestamp }
       const res = await request(server).put(`/api/tickets/${id}`).send(updateData)
       expect(res.body.closed).toBeTruthy()
       expect(res.body.completed_at).toBe(updateData.completed_at)
+    })
+
+    it(`test update timestamp`, async () => {
+      const id = 3
+      const updateData = { title: 'Test' }
+      const res = await request(server).put(`/api/tickets/${id}`).send(updateData)
+      expect(res.body.updated_at).not.toBeNull()
     })
   })
 
