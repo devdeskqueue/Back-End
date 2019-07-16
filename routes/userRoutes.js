@@ -20,6 +20,8 @@ async function register(req, res) {
 
   password = bcrypt.hashSync(password, 10);
   user = { ...req.body, password };
+  if (!user.first_name || !user.last_name || !user.email || !user.password)
+    res.status(400).json({ message: "All fields are required" });
 
   try {
     const result = await db("Users").insert(user);
