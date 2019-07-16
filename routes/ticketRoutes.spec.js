@@ -188,12 +188,11 @@ describe('Tickets endpoint testing', () => {
     })
 
     it('update existing record', async () => {
-      const id = 2
-      const timestamp = Date.now()
-      const updateData = { closed: true, completed_at: timestamp }
+      const id = 1
+      const updateData = { description: 'Testing update function'}
       const res = await request(server).put(`/api/tickets/${id}`).send(updateData)
-      expect(res.body.closed).toBeTruthy()
-      expect(res.body.completed_at).toBe(updateData.completed_at)
+      expect(res.status).toBe(200)
+      expect(res.body.description).toBe(updateData.description)
     })
 
     it(`test update timestamp`, async () => {
@@ -201,6 +200,13 @@ describe('Tickets endpoint testing', () => {
       const updateData = { title: 'Test' }
       const res = await request(server).put(`/api/tickets/${id}`).send(updateData)
       expect(res.body.updated_at).not.toBeNull()
+    })
+
+    it(`test closed_at timestamp`, async () => {
+      const id = 2
+      const updateData = { closed: true }
+      const res = await request(server).put(`/api/tickets/${id}`).send(updateData)
+      expect(res.body.completed_at).not.toBeNull()
     })
   })
 
