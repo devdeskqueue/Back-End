@@ -36,7 +36,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', commentHandler, async (req, res) => {
   try {
     const data = await db.insert('Tickets', req.body)
-    await slackPostHandler(req.body)
+   // await slackPostHandler(req.body)
     res.status(201).send(data)
   }
   catch (err) {
@@ -96,7 +96,7 @@ async function commentHandler (req, res, next) {
   } else next()
 }
 
-async function slackPostHandler (data) {
+/*async function slackPostHandler (data) {
   const url = 'https://hooks.slack.com/services/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'
   var text = `Someone has created a new ticket - ${data.title}.`;
 
@@ -110,7 +110,7 @@ async function slackPostHandler (data) {
   catch (err) {
     return { message: `"Could not post to Slack` }
   }
-}
+}*/
 
 function closedStatusHandler (req, res, next) {
   if (req.body.closed) {
