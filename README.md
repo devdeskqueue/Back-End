@@ -18,6 +18,12 @@ https://dbdiagram.io/d/5d26ae9aced98361d6dc8c8c
 |--------|---------------------------------|----------------------------------------------------|
 | POST    | `/login` | Returns a JWT if successful. Requires 'email' and 'password' be sent in.    |
 
+#### Users
+| Method | Endpoint                        | Description                                        |
+|--------|---------------------------------|----------------------------------------------------|
+| GET    | `/users` | Returns an array of  objects representing all users in the database.     |
+| GET    | `/users/:id` | Returns an object for the particular user id specified.     |
+
 #### Tickets
 
 | Method | Endpoint                        | Description                                        |
