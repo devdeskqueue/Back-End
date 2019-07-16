@@ -8,6 +8,16 @@ https://api-devdesk.herokuapp.com/api
 #### ER Diagram
 https://dbdiagram.io/d/5d26ae9aced98361d6dc8c8c
 
+#### Register
+| Method | Endpoint                        | Description                                        |
+|--------|---------------------------------|----------------------------------------------------|
+| POST    | `/register` | Registers a new user with the system. Requires 'first_name', 'last_name', 'email', and 'password'.     |
+
+#### Login
+| Method | Endpoint                        | Description                                        |
+|--------|---------------------------------|----------------------------------------------------|
+| POST    | `/login` | Returns a JWT if successful. Requires 'email' and 'password' be sent in.    |
+
 #### Tickets
 
 | Method | Endpoint                        | Description                                        |
