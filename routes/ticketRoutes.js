@@ -46,7 +46,7 @@ router.post('/', commentHandler, async (req, res) => {
 })
 
 // ==== PUT ==== //
-router.put('/:id', async (req, res) => {
+router.put('/:id', closedStatusHandler, async (req, res) => {
    // Add timestamp for updates
   const timestamp = Date.now()
   const updatedData = { 
@@ -109,6 +109,16 @@ async function slackPostHandler (data) {
   }
   catch (err) {
     return { message: `"Could not post to Slack` }
+  }
+}
+
+function closedStatusHandler (req, res, next) {
+  if (req.body.closed) {
+    const timestamp = Date.now()
+    req.body.completed_at = timestamp
+    next()
+  } else {
+    next()
   }
 }
 
