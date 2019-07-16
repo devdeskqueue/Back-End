@@ -130,6 +130,26 @@ describe('Tickets endpoint testing', () => {
     })
   })
 
+  describe('create comments with new tickets', () => {
+    afterEach(async () => {
+      await db('Comments').truncate()
+    })
+
+    it('create comment from comment field', async () => {
+      const testData = {
+        title: 'Promise unresolved',
+        description: 'Promise is still unresolved',
+        category_id: 5,
+        opened_by: 2,
+        comment: 'Test comment'
+      }
+      const ticket = await request(server).post('/api/tickets').send(testData)
+      const comment = await request(server).get(`/api/tickets/${ticket.id}/comments/1`)
+      expect(comment.status).toBe(200)
+      expect(comment.body.comment).toBe(testData.comment)
+    })
+  })
+
   describe('UPDATE /tickets/:id', () => {
     // Seed with test data
     const testData = [
