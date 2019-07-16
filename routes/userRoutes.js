@@ -5,6 +5,7 @@ const tokenService = require("../auth/tokenService");
 module.exports = server => {
   server.post("/api/register", register);
   server.post("/api/login", login);
+  server.post("/api/users/:id", users);
 };
 
 /**
@@ -55,6 +56,24 @@ async function login(req, res) {
       });
     } else {
       res.status(401).json({ message: "Something went wrong." });
+    }
+  } catch (err) {
+    return res.status(500).json({ message: "Something went wrong." });
+  }
+}
+
+async function users(req, res) {
+  const { id } = req.params;
+
+  try {
+    if (id) {
+      const user = await db("Users")
+        .where({ id })
+        .first();
+      res.status(200).json(user);
+    } else {
+      const users = await db("Users");
+      res.status(200).json(users);
     }
   } catch (err) {
     return res.status(500).json({ message: "Something went wrong." });
