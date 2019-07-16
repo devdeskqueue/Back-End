@@ -1,5 +1,5 @@
 const router = require('express').Router()
-
+const axios = require('axios')
 // Import data models
 const db = require('../data/models')
 
@@ -36,6 +36,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', commentHandler, async (req, res) => {
   try {
     const data = await db.insert('Tickets', req.body)
+    await slackPostHandler(req.body)
     res.status(201).send(data)
   }
   catch (err) {
@@ -93,7 +94,22 @@ async function commentHandler (req, res, next) {
       res.status(500).send(err.message)
     }
   } else next()
+}
 
-} 
+async function slackPostHandler (data) {
+  const url = 'https://hooks.slack.com/services/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'
+  var text = `Someone has created a new ticket - ${data.title}.`;
+
+  try {
+    const data = await axios.post(url, JSON.stringify({
+      text: text,
+      channel: "help"
+    }))
+    return data
+  }
+  catch (err) {
+    return { message: `"Could not post to Slack` }
+  }
+}
 
 module.exports = router
