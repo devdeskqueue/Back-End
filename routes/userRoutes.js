@@ -53,6 +53,12 @@ async function login(req, res) {
       const token = tokenService.generateToken(user);
       res.status(200).json({
         message: "Login successful",
+        user: {
+          id: user.id,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          email: user.email
+        },
         token
       });
     } else {
