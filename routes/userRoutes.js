@@ -77,7 +77,12 @@ async function users(req, res) {
       const user = await db("Users")
         .where({ id })
         .first();
-      res.status(200).json(user);
+
+      if (user) {
+        res.status(200).json(user);
+      } else {
+        res.status(404).json({ message: "user not found" });
+      }
     } else {
       const users = await db("Users");
       res.status(200).json(users);
