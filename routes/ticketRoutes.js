@@ -80,7 +80,6 @@ router.delete('/:id', async (req, res) => {
 })
 
 async function commentHandler (req, res, next) {
-  //const { comment } = req.body
   if (req.body.comment) {
     try {
       const comment = { comment: req.body.comment }
@@ -88,7 +87,7 @@ async function commentHandler (req, res, next) {
       const ticket = await db.insert('Tickets', req.body)
       comment.ticket_id = ticket.id
       await db.insert('Comments', comment)
-      res.status(201).send(comment)
+      res.status(201).send(ticket)
     }
     catch (err) {
       res.status(500).send(err.message)
