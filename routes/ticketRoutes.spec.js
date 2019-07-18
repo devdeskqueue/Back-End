@@ -137,8 +137,8 @@ describe('Tickets endpoint testing', () => {
 
     it('create comment from comment field', async () => {
       const testData = {
-        title: 'Promise unresolved',
-        description: 'Promise is still unresolved',
+        title: `Can't add a comment`,
+        description: `I'm having problems creating a comment to the ticket.`,
         category_id: 5,
         opened_by: 2,
         comment: 'Test comment'
@@ -147,6 +147,8 @@ describe('Tickets endpoint testing', () => {
       const comment = await request(server).get(`/api/tickets/${ticket.id}/comments/1`)
       expect(comment.status).toBe(200)
       expect(comment.body.comment).toBe(testData.comment)
+      expect(comment.body.ticket_id).toBe(ticket.body.id)
+      expect(ticket.body.title).toBe(testData.title)
     })
   })
 
