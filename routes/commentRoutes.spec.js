@@ -48,10 +48,10 @@ describe('Comments endpoint testing', () => {
       expect(res.status).toBe(200)
     })
 
-    it('should return all comments in test database', async () => {
-      const ticket_id = 1
+    it('should return all comments that are associated with the ticket', async () => {
+      const ticket_id = 2
       const res = await request(server).get(`/api/tickets/${ticket_id}/comments`)
-      expect(res.body.length).toEqual(testData.length)
+      expect(res.body.length).toBe(2)
     })
   })
 
