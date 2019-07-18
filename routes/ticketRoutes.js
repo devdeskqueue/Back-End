@@ -86,6 +86,7 @@ async function commentHandler (req, res, next) {
       delete req.body.comment
       const ticket = await db.insert('Tickets', req.body)
       comment.ticket_id = ticket.id
+      comment.opened_by = ticket.opened_by
       await db.insert('Comments', comment)
       res.status(201).send(ticket)
     }

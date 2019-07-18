@@ -1,31 +1,33 @@
 ### GET (Basic)
 http://localhost:5000
 
-### GET Projects (ALL)
-http://localhost:5000/api/projects
-https://wme-projects-api-v2.herokuapp.com/api/projects
+### GET Tickets (ALL)
+http://localhost:5000/api/tickets
+https://wme-tickets-api-v2.herokuapp.com/api/tickets
 
-### GET Actions (ALL)
-http://localhost:5000/api/projects/1/actions
+### GET Comments (ALL)
+http://localhost:5000/api/tickets/1/comments
 
-### GET Projects (by ID)
-http://localhost:5000/api/projects/13
+### GET Tickets (by ID)
+http://localhost:5000/api/tickets/13
 
-### GET Actions (ID)
-http://localhost:5000/api/projects/2/actions/4
+### GET Comments (ID)
+http://localhost:5000/api/tickets/2/comments/4
 
-### POST (Projects)
-POST http://localhost:5000/api/projects HTTP/1.1
+### POST (Tickets)
+POST http://localhost:5000/api/tickets HTTP/1.1
 content-type: application/json
 
 {
-  "name": "API Database Deployment",
-  "description": "Deploy Database to AWS RDS platform",
-  "is_complete": false
+  "title": "Crazy error message",
+  "description": "Create a new comment test",
+  "category_id": 1,
+  "opened_by": 2,
+  "comment": "Comment is attached to this ticket"
 }
 
-### POST (Actions)
-POST http://localhost:5000/api/projects/13/actions HTTP/1.1
+### POST (Comments)
+POST http://localhost:5000/api/tickets/13/comments HTTP/1.1
 content-type: application/json
 
 {
@@ -44,7 +46,7 @@ content-type: application/json
 }
 
 ### PUT (Action)
-PUT http://localhost:5000/api/projects/12/actions/16 HTTP/1.1
+PUT http://localhost:5000/api/tickets/12/comments/16 HTTP/1.1
 content-type: application/json
 
 {
@@ -54,8 +56,8 @@ content-type: application/json
   "is_complete": true
 }
 
-### DELETE (Projects)
-DELETE http://localhost:5000/api/projects/4
+### DELETE (Tickets)
+DELETE http://localhost:5000/api/tickets/5
 
-### DELETE (Actions)
-DELETE http://localhost:5000/api/projects/1/actions/3
+### DELETE (Comments)
+DELETE http://localhost:5000/api/tickets/5/comments/5
