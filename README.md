@@ -21,38 +21,38 @@ https://dbdiagram.io/d/5d26ae9aced98361d6dc8c8c
 #### Users
 | Method | Endpoint                        | Description                                        |
 |--------|---------------------------------|----------------------------------------------------|
-| GET    | `/users` | Returns an array of  objects representing all users in the database.     |
+| GET    | `/users` | Returns an array of objects representing all users in the database.     |
 | GET    | `/users/:id` | Returns an object for the particular user id specified.     |
 
 #### Tickets
 
 | Method | Endpoint                        | Description                                        |
 |--------|---------------------------------|----------------------------------------------------|
-| GET    | `/tickets` | Returns all tickets       |
-| GET    | `/tickets/:id` | Returns the project with the provided `id` and include a list of the related comments. |
-| POST    | `/tickets` | Add the project to the database and return the `id` of the new project. |
-| PUT    | `/tickets/:id` | Modify an existing project.                   |
-| DELETE | `/tickets/:id`         | Delete a project.                            |
+| GET    | `/tickets` | Returns an array of objects representing all tickets in the database       |
+| GET    | `/tickets/:id` | Returns a specific ticket with the provided `id`. |
+| POST    | `/tickets` | Add a new ticket to the database and returns the newly created ticket. Requires `title`, `description`, |
+| PUT    | `/tickets/:id` | Modify an existing ticket.                   |
+| DELETE | `/tickets/:id`         | Delete a ticket.                            |
 
 #### Comments
 
 | Method | Endpoint                        | Description                                        |
 |--------|---------------------------------|----------------------------------------------------|
-| GET    | `/tickets/:ticket_id/comments`         | Returns all comments for a specific project      |
+| GET    | `/tickets/:ticket_id/comments`         | Returns an array of objects representing all comments for a specific ticket      |
 | GET    | `/tickets/:ticket_id/comments/:id`         | Returns the comment with the provided `id`.       |
 | POST    | `/tickets/:ticket_id/comments`         | Add a comment to the database.      |
 | PUT    | `/tickets/:ticket_id/comments/:id`         | Modify an existing comment.                   |
-| DELETE | `/tickets/:ticket_id/comments/:id`         | Delete an comments.                            |                           |
+| DELETE | `/tickets/:ticket_id/comments/:id`         | Delete a comment.                            |                           |
 
 #### Categories
 
 | Method | Endpoint                        | Description                                        |
 |--------|---------------------------------|----------------------------------------------------|
-| GET    | `/categories` | Returns all categories       |
-| GET    | `/categories/:id` | Returns the project with the provided `id` and include a list of the related comments. |
-| POST    | `/categories` | Add the project to the database and return the `id` of the new project. |
-| PUT    | `/categories/:id` | Modify an existing project.                   |
-| DELETE | `/categories/:id`         | Delete a project.     
+| GET    | `/categories` | Returns an array of all categories       |
+| GET    | `/categories/:id` | Returns the category with the provided `id`. |
+| POST    | `/categories` | Add the category to the database and return the `id` of the new category. |
+| PUT    | `/categories/:id` | Modify an existing category.                   |
+| DELETE | `/categories/:id` | Delete a category.     
 
 ---
 ### Data Models
