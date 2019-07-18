@@ -19,9 +19,10 @@ router.get('/:ticket_id/comments', async (req, res) => {
 router.get('/:ticket_id/comments/:id', async (req, res) => {
   const { id } = req.params
   try {
-    const data = await db.findById('Comments', id)
+    const data = await db.findByTicketId('Comments', req.params.ticket_id)
     if (data) {
-      res.send(data)
+      const filteredData = data.find(obj => obj.id == req.params.id)
+      res.send(filteredData)
     } else {
       res.status(404).json({ message: `Record ${id} not found` })
     }

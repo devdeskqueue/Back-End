@@ -10,15 +10,15 @@ function findAll(table) {
 //   return db(table).where({ field: `${data}` })
 // }
 
-function findByTicketId(table, ticket_id) {
-  return db(table).where({ ticket_id }).orderBy("id");
-}
-
 async function findById(table, id) {
   let result = await db(table)
     .where({ id })
     .first();
   return result;
+}
+
+function findByTicketId(table, ticket_id) {
+  return db(table).where({ ticket_id }).orderBy("id");
 }
 
 function findByEmail(email) {
