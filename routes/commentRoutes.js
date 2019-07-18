@@ -6,9 +6,9 @@ const db = require('../data/models')
 // Load middleware
 
 // ==== GET ==== //
-router.get('/', async (req, res) => {
+router.get('/:ticket_id/comments', async (req, res) => {
   try {
-    const data = await db.findAll('Comments')
+    const data = await db.findByTicketId('Comments', req.params.ticket_id)
     res.send(data)
   }
   catch (err) {
@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
   }
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/:ticket_id/comments/:id', async (req, res) => {
   const { id } = req.params
   try {
     const data = await db.findById('Comments', id)
@@ -33,7 +33,7 @@ router.get('/:id', async (req, res) => {
 })
 
 // ==== POST ==== //
-router.post('/', async (req, res) => {
+router.post('/:ticket_id/comments', async (req, res) => {
   try {
     const data = await db.insert('Comments', req.body)
     res.status(201).send(data)
@@ -44,7 +44,7 @@ router.post('/', async (req, res) => {
 })
 
 // ==== PUT ==== //
-router.put('/:id', async (req, res) => {
+router.put('/:ticket_id/comments/:id', async (req, res) => {
   // Add timestamp for updates
   const timestamp = Date.now()
   const updatedData = {
@@ -66,7 +66,7 @@ router.put('/:id', async (req, res) => {
 
 
 // ==== DELETE ==== //
-router.delete('/:id', async (req, res) => {
+router.delete('/:ticket_id/comments/:id', async (req, res) => {
   const { id } = req.params
   try {
     const data = await db.remove('Comments', id)

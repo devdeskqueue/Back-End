@@ -15,7 +15,7 @@ server.use(express.json(), helmet(), cors());
 
 // Route handling
 server.use("/api/tickets", ticketRoutes);
-server.use("/api/tickets/:ticket_id/comments", commentRoutes);
+server.use("/api/tickets", commentRoutes);
 server.use("/api/categories", categoriesRoutes);
 userRoutes(server);
 
