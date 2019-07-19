@@ -11,7 +11,7 @@ describe('Models testing', () => {
     }
   })
 
-  describe('findAll()', () => {
+  xdescribe('findAll()', () => {
     it(`find all records in Categories table`, async () => {
       // Seed with test data
       const testData = [
@@ -42,7 +42,7 @@ describe('Models testing', () => {
     })
   })
 
-  describe('findByTicketId()', () => {
+  xdescribe('findByTicketId()', () => {
     it('find all comments by ticket ID', async () => {
       // Seed with test data
       const testData = [
@@ -84,7 +84,7 @@ describe('Models testing', () => {
     })
   })
 
-  describe('findById()', () => {
+  xdescribe('findById()', () => {
     it('find record by id', async () => {
       // Seed with test data
       const testData = [
@@ -132,7 +132,7 @@ describe('Models testing', () => {
     })
   })
 
-  describe('insert()', () => {
+  xdescribe('insert()', () => {
     it('insert records into the database', async () => {
       const testData = {
         first_name: 'Harry',
@@ -182,6 +182,7 @@ describe('Models testing', () => {
 
       // Validate Model
       expect(data.name).toBe(newData.name)
+      expect(data.updated_at).not.toBeNull()
     })
   })
 

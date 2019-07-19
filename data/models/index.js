@@ -39,15 +39,18 @@ async function insert(table, data) {
 async function update(table, id, data) {
   try {
     if (data.closed) {
-      await db(table).update('completed_at', db.fn.now())
+      await db(table)
+        .where({ id })
+        .update('completed_at', db.fn.now())
     }
+
     const count = await db(table)
       .where({ id })
       .update(data)
       .update('updated_at', db.fn.now())
 
     if (count > 0) {
-      return await findById(table, id);
+      return findById(table, id);
     }
   } catch (err) {
     return err;
