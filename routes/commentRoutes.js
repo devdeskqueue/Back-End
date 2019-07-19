@@ -46,17 +46,10 @@ router.post('/:ticket_id/comments', async (req, res) => {
 
 // ==== PUT ==== //
 router.put('/:ticket_id/comments/:id', async (req, res) => {
-  // Add timestamp for updates
-  const timestamp = Date.now()
-  const updatedData = {
-    ...req.body,
-    updated_at: timestamp
-  }
-
   const { id } = req.params
 
   try {
-    const data = await db.update('Comments', id, updatedData)
+    const data = await db.update('Comments', id, req.body)
     res.send(data)
   }
 
