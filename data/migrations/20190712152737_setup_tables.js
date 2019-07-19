@@ -4,11 +4,15 @@ exports.up = async function(knex) {
     tbl.increments('id')
     tbl.string('name').unique().notNullable()
     tbl.string('description', 1000)
+    tbl.timestamp('created_at').defaultTo(knex.fn.now())
+    tbl.timestamp('updated_at')
   })
 
   await knex.schema.createTable('Roles', tbl => {
     tbl.increments('id')
     tbl.string('name').unique().notNullable()
+    tbl.timestamp('created_at').defaultTo(knex.fn.now())
+    tbl.timestamp('updated_at')
   })
 
   await knex.schema.createTable('Users', tbl => {
@@ -22,6 +26,8 @@ exports.up = async function(knex) {
       .defaultTo(2)
       .references('id')
       .inTable('Roles')
+    tbl.timestamp('created_at').defaultTo(knex.fn.now())
+    tbl.timestamp('updated_at')
   })
 
   await knex.schema.createTable('Tickets', tbl => {
