@@ -38,11 +38,12 @@ content-type: application/json
 }
 
 ### PUT (Tickets)
-PUT http://localhost:5000/api/tickets/2 HTTP/1.1
+# PUT https://api-devdesk.herokuapp.com/api/tickets/1/ HTTP/1.1
+PUT http://localhost:5000/api/tickets/1/ HTTP/1.1
 content-type: application/json
 
 {
- "closed": true
+ "assigned_to": 1
 }
 
 ### PUT (Action)
