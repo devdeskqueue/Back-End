@@ -6,24 +6,25 @@ http://localhost:5000/api/tickets
 https://wme-tickets-api-v2.herokuapp.com/api/tickets
 
 ### GET Comments (ALL)
-http://localhost:5000/api/tickets/1/comments
+http://localhost:5000/api/tickets/21/comments
 
 ### GET Tickets (by ID)
-http://localhost:5000/api/tickets/13
+http://localhost:5000/api/tickets/21
 
 ### GET Comments (ID)
 http://localhost:5000/api/tickets/2/comments/4
 
 ### POST (Tickets)
 POST http://localhost:5000/api/tickets HTTP/1.1
+//POST https://api-devdesk.herokuapp.com/api/tickets HTTP/1.1
 content-type: application/json
 
 {
-  "title": "Crazy error message",
-  "description": "Create a new comment test",
-  "category_id": 1,
-  "opened_by": 2,
-  "comment": "Comment is attached to this ticket"
+  "title": "Creating another test ticket",
+  "description": "Test Description",
+  "category_id": 2,
+  "opened_by": 4,
+  "comment": "Awesome comments"
 }
 
 ### POST (Comments)
@@ -58,7 +59,7 @@ content-type: application/json
 }
 
 ### DELETE (Tickets)
-DELETE http://localhost:5000/api/tickets/5
+DELETE http://localhost:5000/api/tickets/20
 
 ### DELETE (Comments)
 DELETE http://localhost:5000/api/tickets/5/comments/5
