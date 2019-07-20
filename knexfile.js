@@ -11,7 +11,7 @@ module.exports = {
       directory: './data/migrations'
     },
     seeds: {
-      directory: './data/seeds'
+      directory: './data/development/seeds'
     },
     debug: true
   },
@@ -23,6 +23,9 @@ module.exports = {
     },
     migrations:{
       directory: './data/migrations'
+    },
+    seeds: {
+      directory: './data/seeds/testing'
     }
   },
   staging: {
@@ -36,7 +39,7 @@ module.exports = {
       directory: './data/migrations'
     },
     seeds: {
-      directory: './data/seeds'
+      directory: './data/seeds/staging'
     },
     debug: true
   },
@@ -51,7 +54,7 @@ module.exports = {
       directory: './data/migrations'
     },
     seeds: {
-      directory: './data/seeds'
+      directory: './data/seeds/production'
     }
   }
 
