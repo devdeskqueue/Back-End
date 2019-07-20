@@ -29,8 +29,8 @@ function findByEmail(email) {
 
 async function insert(table, data) {
   try {
-    const [id] = await db(table).insert(data);
-    return await findById(table, id);
+    const [results] = await db(table).insert(data).returning('*')
+    return results
   } catch (err) {
     return err;
   }
