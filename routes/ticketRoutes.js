@@ -76,12 +76,17 @@ router.delete('/:id', async (req, res) => {
 async function commentHandler (req, res, next) {
   if (req.body.comment) {
     try {
+      // Create new ticket record and stage comment data
       const comment = { comment: req.body.comment }
       delete req.body.comment
       const ticket = await db.insert('Tickets', req.body)
       comment.ticket_id = ticket.id
       comment.opened_by = ticket.opened_by
+
+      // Create new comment record
       await db.insert('Comments', comment)
+      
+      // Send new ticket information
       res.status(201).send(ticket)
     }
     catch (err) {
